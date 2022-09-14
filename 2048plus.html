@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<link rel="apple-touch-icon" sizes="57x57" href="./apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="./apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="./apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="./apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="./apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="./apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="./apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="./apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="./android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="./favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+<link rel="manifest" href="./manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="./ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<meta charset="UTF-8">
+<title>2048</title>
+<style>
+ body { overscroll-behavior-y: none; }
+  #table { border-collapse: collapse; user-select: none; }
+  #table td {
+    border: 10px solid #bbada0; width: 116px; height: 128px;
+    font-size: 50px; font-weight: bold; text-align: center;
+  }
+  #score { user-select: none; }
+  .color-2 { background-color: #eee4da; color: #776e65;}
+  .color-4 { background-color: #eee1c9; color: #776e65;}
+  .color-8 { background-color: #f3b27a; color: 'white';}
+  .color-16 { background-color: #f69664; color: 'white';}
+  .color-32 { background-color: #f77c5f; color: 'white';}
+  .color-64 { background-color: #f75f3b; color: 'white';}
+  .color-128 { background-color: #edd073; color: #776e65;}
+  .color-256 { background-color: #edcc62; color: #776e65;}
+  .color-512 { background-color: #edc950; color: #776e65;}
+  .color-1024 { background-color: #edc53f; color: #776e65;}
+  .color-2048 { background-color: #edc22e; color: #776e65;}
+  .color-4096 { background-color: #3cc8ff; color: #776e65;}
+  .color-8192 { background-color: #80fcb4; color: #776e65;}
+</style>
+</head>
+<body>
+<table id="table"></table>
+<div>
+  <span id="score">0</span>
+  <button id="back">되돌리기</button>
+  <span id="how_many_remain">3회 남음</span>
+  <button id="Fail">포기하기</button>
+  <button id="record">기록하기</button>
+  <span id="information"></span>
+  <div id="NotWorkGroup"></div>
+  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="btnup">⇧</button><br><button id="btnlt">⇦</button><button id="btndn">⇩</button><button id="btnrt">⇨</button></div>
+  <a id="target" style="display: none"></a>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script src="./2048codeplus.js"></script>
+</body>
+</html>
