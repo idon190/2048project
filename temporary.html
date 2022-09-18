@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <style>
+    /* #table { border-collapse: collapse; user-select: none; }
+    #table td {
+      border: 10px solid #bbada0; width: 116px; height: 128px;
+      font-size: 50px; font-weight: bold; text-align: center;
+    }
+    .test {background: #ff0000; transform: translate(100px, 100px);}
+    .tile {transition: 1s ease-in-out;} */
+  </style>
+</head>
+<body>
+  <table id="table"></table>
+  <td id = "td"></td>
+
+  <script>
+    const $td1 = document.createElement('td');
+    console.log($td1);
+    $td1.textContent = 2;
+    data = [];
+    const $table = document.getElementById("table");
+  
+    function startGame() { // 게임 시작 함수
+      const $fragment = document.createDocumentFragment(); // documentFragment 생성
+      [1, 2, 3, 4].forEach(() => { // 4번 반복
+        const rowData = []; // 가로줄 생성
+        data.push(rowData); // data에 가로줄 추가
+        const $tr = document.createElement('tr'); // tr 생성
+        [1, 2, 3, 4].forEach(() => { // 4번 반복
+          rowData.push(0); // 가로줄에 빈(0) 칸 생성
+          const $td = document.createElement('td'); // td 생성
+          $tr.appendChild($td); // tr에 td 삽입
+        });
+        $fragment.appendChild($tr); // documentFragment에 tr 삽입
+      });
+      $table.appendChild($fragment); // table에 documentFragment 삽입(불러오기)
+      data[0][0] = 2;
+      draw();
+    }
+
+  function draw() { // 데이터를 표시하는 함수
+    data.forEach((rowData, i) => { // 각각의 가로줄에 대하여
+      rowData.forEach((cellData, j) => { // 각각의 세로줄에 대하여 >>> 가로줄 안에서 세로줄을 찾으므로 한 칸씩 탐색됨(즉 각각의 칸에 대해서)
+        const $target = $table.children[i].children[j]; // 표시할 대상 지정
+        if (cellData) { // 칸에 값이 있으면(0이 아니면)
+          $target.textContent = cellData; // 표시할 내용을 칸에 있는 값으로 설정
+          $target.className = 'test tile'; // 표시할 색을 칸에 있는 값에 해당하는 색으로 설정(html 파일 참조)
+        } else { // 아니면(칸에 0이 있으면(비어 있으면))
+          $target.textContent = ''; // 표시할 내용을 미지정
+          $target.className = ''; // 표시할 색을 미지정
+        }
+      });
+    });
+  }
+  
+    startGame();
+  </script>
+</body>
+</html>
