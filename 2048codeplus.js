@@ -138,8 +138,8 @@ function moveCells(direction) {
   switch(direction) {
     case 'left' :{
       data.forEach((rowData, i) => {
-        rowData.forEach((cellData, j) => {
-          if (j>0 && cellData) {
+        rowData.forEach((columnData, j) => {
+          if (j>0 && columnData) {
             if (data[i][j-1] === 0) {
               console.log(data);
               data[i][j-1] = data[i][j];
@@ -149,8 +149,55 @@ function moveCells(direction) {
           }
         });
       });
+      break;
+    }
+    case 'right' :{
+      data.forEach((rowData, i) => {
+        rowData.forEach((columnData, j) => {
+          if (j>0 && rowData[3-j]) {
+            if (data[i][4-j] === 0) {
+              console.log(data);
+              data[i][4-j] = data[i][3-j];
+              data[i][3-j] = 0;
+              console.log(data);
+            }
+          }
+        });
+      });
+      break;
+    }
+    case 'up' :{
+      data.forEach((columnData, i) => {
+        columnData.forEach((rowData, j) => {
+          if (j>0 && data[j][i]) {
+            if (data[j-1][i] === 0) {
+              console.log(data);
+              data[j-1][i] = data[j][i];
+              data[j][i] = 0;
+              console.log(data);
+            }
+          }
+        });
+      });
+      break;
+    }
+    case 'down' :{
+      data.forEach((columnData, i) => {
+        columnData.forEach((rowData, j) => {
+          if (j>0 && data[3-j][i]) {
+            if (data[4-j][i] === 0) {
+              console.log(data);
+              data[4-j][i] = data[3-j][i];
+              data[3-j][i] = 0;
+              console.log(data);
+            }
+          }
+        });
+      });
+      break;
     }
   }
+  put2ToRandomCell();
   draw();
 }
 
