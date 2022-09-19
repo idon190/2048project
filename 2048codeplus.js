@@ -1,26 +1,5 @@
 // // // // //  변수 선언부 // // // // // 
-const $table = document.getElementById("table"); // 표 생성
 let data = []; // 게임판(이중배열)
-
-// const $img = document.createElement("img");
-// $img.src = "./www.png";
-// $img.usemap = "#www";
-// const $map = document.createElement("map");
-// $map.name = "www";
-// const $area = document.createElement("area");
-// $area.shape = "rect";
-// $area.coords = "0,0,144,144";
-
-// $map.appendChild($area);
-
-// console.log($map);
-// var src = document.getElementById("x");
- 
-// src.appendChild($img);
-
-// $area.coords = "100,100,244,244";
-
-
 
 // // // // //  함수 선언 및 동작부 // // // // // 
 function startGame() { // 게임 시작 함수
@@ -58,10 +37,9 @@ function draw() { // 데이터를 표시하는 함수
   data.forEach((rowData, i) => { // 각각의 가로줄에 대하여
     rowData.forEach((cellData, j) => { // 각각의 세로줄에 대하여 >>> 가로줄 안에서 세로줄을 찾으므로 한 칸씩 탐색됨(즉 각각의 칸에 대해서)
       const $target = $table.children[i].children[j]; // 표시할 대상 지정
-      console.log($table)
       if (cellData) { // 칸에 값이 있으면(0이 아니면)
         $target.textContent = cellData; // 표시할 내용을 칸에 있는 값으로 설정
-        $target.className = 'color-' + cellData+' position-'+i+'-'+j+' test'; // 표시할 색을 칸에 있는 값에 해당하는 색으로 설정(html 파일 참조)
+        $target.className = 'color-' + cellData; // 표시할 색을 칸에 있는 값에 해당하는 색으로 설정(html 파일 참조)
       } else { // 아니면(칸에 0이 있으면(비어 있으면))
         $target.textContent = ''; // 표시할 내용을 미지정
         $target.className = ''; // 표시할 색을 미지정
@@ -71,9 +49,9 @@ function draw() { // 데이터를 표시하는 함수
 }
 
 function moveCells(direction) { // 각 칸의 데이터들을 정렬하고 병합하는 함수
-  const newData = [[],[],[],[]]; // 정렬을 위한 배열 생성
   switch (direction) { // direction에 대하여
     case 'left': { // left이면
+      const newData = [[], [], [], []]; // 정렬을 위한 배열 생성
       data.forEach((rowData, i) => { // 각각의 가로줄에 대하여
         rowData.forEach((cellData, j) => { // 각각의 세로줄에 대하여 >>> 가로줄 안에서 세로줄을 찾으므로 한 칸씩 탐색됨(즉 각각의 칸에 대해서)
           if (cellData) { // 칸에 값이 있으면(0이 아니면)
@@ -93,6 +71,7 @@ function moveCells(direction) { // 각 칸의 데이터들을 정렬하고 병�
       break;
     }
     case 'right': { // right이면
+      const newData = [[], [], [], []]; // 정렬을 위한 배열 생성
       data.forEach((rowData, i) => { // 각각의 가로줄에 대하여
         rowData.forEach((celLData, j) => { // 각각의 세로줄에 대하여 >>> 가로줄 안에서 세로줄을 찾으므로 한 칸씩 탐색됨(즉 각각의 칸에 대해서)
           if (rowData[3-j]) { // 칸에 값이 있으면(0이 아니면) >>> 오른쪽부터(거꾸로) 감지해야 하므로 왼쪽부터인 cellData 대신 rowData[3-j]를 사용
@@ -112,6 +91,7 @@ function moveCells(direction) { // 각 칸의 데이터들을 정렬하고 병�
       break;
     }
     case 'up': { // up이면
+      const newData = [[], [], [], []]; // 정렬을 위한 배열 생성
       data.forEach((rowData, i) => { // 각각의 가로줄에 대하여
         rowData.forEach((cellData, j) => { // 각각의 세로줄에 대하여 >>> 가로줄 안에서 세로줄을 찾으므로 한 칸씩 탐색됨(즉 각각의 칸에 대해서)
           if (cellData) { // 칸에 값이 있으면(0이 아니면)
@@ -131,6 +111,7 @@ function moveCells(direction) { // 각 칸의 데이터들을 정렬하고 병�
       break;
     }
     case 'down': { // down이면
+      const newData = [[], [], [], []]; // 정렬을 위한 배열 생성
       data.forEach((rowData, i) => { // 각각의 가로줄에 대하여
         rowData.forEach((cellData, j) => { // 각각의 세로줄에 대하여 >>> 가로줄 안에서 세로줄을 찾으므로 한 칸씩 탐색됨(즉 각각의 칸에 대해서)
           if (data[3-i][j]) { // 칸에 값이 있으면(0이 아니면) >>> 아래쪽부터(거꾸로) 감지해야 하므로 왼쪽부터인 cellData 대신 data[3-i][j]를 사용
