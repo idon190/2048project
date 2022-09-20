@@ -22,6 +22,30 @@
 <title>2048</title>
 <style>
  body { overscroll-behavior-y: none; }
+  #table td {
+    border: 10px solid #bbada0; width: 116px; height: 128px;
+    font-size: 50px; font-weight: bold; text-align: center;
+  }
+
+ .tile {
+  font-size: 50px;
+  font-weight: bold;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+ }
+
+ .animation .position00 {
+  transform: translate(0px, 0px);
+ }
+ .animation .position01 {
+  transform: translate(120px, 0px);
+ }
+
+ .animation {
+  transition: 200ms ease-in-out;
+ }
 
  .game-background {
   position: relative;
@@ -99,6 +123,13 @@
         <div class="grid-cell"></div>
         <div class="grid-cell"></div>
         <div class="grid-cell"></div>
+      </div>
+    </div>
+    <div class="game-container">
+      <div class="tile">
+        <div class="animation">
+          <div id="tile" class="position00">2</div>
+        </div>
       </div>
     </div>
   </div>
