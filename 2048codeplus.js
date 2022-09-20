@@ -1,5 +1,7 @@
 // // // // //  변수 선언부 // // // // // 
 let data = []; // 게임판(이중배열)
+const $table = document.createElement("table");
+const $tile = document.getElementById("tile");
 
 // // // // //  함수 선언 및 동작부 // // // // // 
 function startGame() { // 게임 시작 함수
@@ -51,6 +53,8 @@ function draw() { // 데이터를 표시하는 함수
 function moveCells(direction) { // 각 칸의 데이터들을 정렬하고 병합하는 함수
   switch (direction) { // direction에 대하여
     case 'left': { // left이면
+      $tile.className = "position01";
+      console.log($tile);
       const newData = [[], [], [], []]; // 정렬을 위한 배열 생성
       data.forEach((rowData, i) => { // 각각의 가로줄에 대하여
         rowData.forEach((cellData, j) => { // 각각의 세로줄에 대하여 >>> 가로줄 안에서 세로줄을 찾으므로 한 칸씩 탐색됨(즉 각각의 칸에 대해서)
