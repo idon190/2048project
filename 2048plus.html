@@ -36,14 +36,24 @@
   line-height: 100px;
  }
 
- .animation .position00 {
-  transform: translate(0px, 0px);
- }
- .animation .position01 {
-  transform: translate(120px, 0px);
- }
+ .position00 {transform: translate(0px, 0px);}
+ .position01 {transform: translate(120px, 0px);}
+ .position02 {transform: translate(240px, 0px);}
+ .position03 {transform: translate(360px, 0px);}
+ .position10 {transform: translate(0px, 120px);}
+ .position11 {transform: translate(120px, 120px);}
+ .position12 {transform: translate(240px, 120px);}
+ .position13 {transform: translate(360px, 120px);}
+ .position20 {transform: translate(0px, 240px);}
+ .position21 {transform: translate(120px, 240px);}
+ .position22 {transform: translate(240px, 240px);}
+ .position23 {transform: translate(360px, 240px);}
+ .position30 {transform: translate(0px, 360px);}
+ .position31 {transform: translate(120px, 360px);}
+ .position32 {transform: translate(240px, 360px);}
+ .position33 {transform: translate(360px, 360px);}
 
- .animation {
+ #tile {
   transition: 200ms ease-in-out;
  }
 
@@ -127,9 +137,7 @@
     </div>
     <div class="game-container">
       <div class="tile">
-        <div class="animation">
-          <div id="tile" class="position00">2</div>
-        </div>
+        <div id="tile" class="position00">2</div>
       </div>
     </div>
   </div>
