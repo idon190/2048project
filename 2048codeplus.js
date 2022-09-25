@@ -3,6 +3,7 @@ let data = []; // 게임판(이중배열)
 const $table = document.createElement("table");
 const $tile = document.getElementById("tile");
 
+
 // // // // //  함수 선언 및 동작부 // // // // // 
 function startGame() { // 게임 시작 함수
   const $fragment = document.createDocumentFragment(); // documentFragment 생성
@@ -35,25 +36,39 @@ function put2ToRandomCell() { // 2를 랜덤한 빈 칸에 생성하는 함수
   data[randomCell[0]][randomCell[1]] = 2; //  추출된 칸의 데이터를 2로 설정
 }
 
-function draw() { // 데이터를 표시하는 함수
-  data.forEach((rowData, i) => { // 각각의 가로줄에 대하여
-    rowData.forEach((cellData, j) => { // 각각의 세로줄에 대하여 >>> 가로줄 안에서 세로줄을 찾으므로 한 칸씩 탐색됨(즉 각각의 칸에 대해서)
-      const $target = $table.children[i].children[j]; // 표시할 대상 지정
-      if (cellData) { // 칸에 값이 있으면(0이 아니면)
-        $target.textContent = cellData; // 표시할 내용을 칸에 있는 값으로 설정
-        $target.className = 'color-' + cellData; // 표시할 색을 칸에 있는 값에 해당하는 색으로 설정(html 파일 참조)
-      } else { // 아니면(칸에 0이 있으면(비어 있으면))
-        $target.textContent = ''; // 표시할 내용을 미지정
-        $target.className = ''; // 표시할 색을 미지정
+function draw(direction) { // 데이터를 표시하는 함수
+  switch (direction) {
+    case 'left': {
+      var realdata = 0;
+      var showndata = 0;
+      for (i=0;i<1;i++) {
+        $targetdiv = document.getElementsByClassName('position'+i+showndata)[0];
+        if (data[i][realdata] && $targetdiv) {
+          console.log("if1");
+
+        } else if (data[i][realdata] && !$targetdiv) {
+          showndata += 1;
+          console.log("if2");
+        } else if (!data[i][realdata] && $targetdiv) {
+          realdata += 1;
+          console.log("if3");
+          $targetdiv.className = 'position'+i+(showndata+1);
+        } else {
+          console.log("else");
+          realdata += 1;
+          showndata += 1;
+        }
+
       }
-    });
-  });
+    }
+  }
 }
 
 function moveCells(direction) { // 각 칸의 데이터들을 정렬하고 병합하는 함수
   switch (direction) { // direction에 대하여
     case 'left': { // left이면
-      $tile.className = "position01";
+      positionnumber = Number($tile.className.slice(-1))+1
+      $tile.className = "position0"+positionnumber;
       console.log($tile);
       const newData = [[], [], [], []]; // 정렬을 위한 배열 생성
       data.forEach((rowData, i) => { // 각각의 가로줄에 대하여
@@ -92,6 +107,7 @@ function moveCells(direction) { // 각 칸의 데이터들을 정렬하고 병�
           data[i][3-j] = Math.abs(newData[i][j]) || 0; // newData에 왼쪽과 오른쪽의 순서가 반대로 저장되었기 때문에 적용하는 것도 순서를 반대로 해 줌(원상 복귀)
         });
       });
+      draw('left');
       break;
     }
     case 'up': { // up이면
@@ -136,7 +152,7 @@ function moveCells(direction) { // 각 칸의 데이터들을 정렬하고 병�
     }
   }
   put2ToRandomCell(); // 2를 랜덤한 빈 칸에 생성하는 함수
-  draw(); // 데이터를 표시하는 함수
+  //draw(); // 데이터를 표시하는 함수
 }
 
 window.addEventListener('keyup', (event) => { // 키보드 키가 뗴질 때
