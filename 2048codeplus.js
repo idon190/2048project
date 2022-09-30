@@ -191,6 +191,75 @@ window.addEventListener('keyup', (event) => { // 키보드 키가 뗴질 때
   }
 });
 
+let startCoord;
+function mousedown(event){ // 마우스 시작점 기록
+  startCoord = [event.clientX, event.clientY];
+};
+
+function mouseup(event){ // 마우스 종료 위치 기록및 차이점으로 cell이동 여부 및 이동 방향 결정
+  const endCoord = [event.clientX, event.clientY]; // xy좌표 기록
+  const diffX = endCoord[0] - startCoord[0]; // x좌표 차이 계산
+  const diffY = endCoord[1] - startCoord[1]; // y좌표 차이 계산
+  if (diffX < -100 && Math.abs(diffX) > Math.abs(diffY)) { // 왼쪽일때
+      moveCells('left');
+  } else if (diffX > 100 && Math.abs(diffX) > Math.abs(diffY)) { // 오른쪽일때
+      moveCells('right');
+  } else if (diffY > 100 && Math.abs(diffX) <= Math.abs(diffY)) { // 아래쪽일때
+      moveCells('down');
+  } else if (diffY < -100 && Math.abs(diffX) <= Math.abs(diffY)) { // 위쪽일때
+      moveCells('up');
+  } 
+};
+
+function touchstart(event){ // 터치 시작점 기록 // 마우스 참고
+  startCoord = [event.touches[0].clientX, event.touches[0].clientY];
+};
+
+function touchend(event){ // 터치 종료 위치 기록및 차이점으로 cell이동 여부 및 이동 방향 결정 // 마우스 참고
+  const endCoord = [event.changedTouches[0].clientX, event.changedTouches[0].clientY];
+  const diffX_touch = endCoord[0] - startCoord[0];
+  const diffY_touch = endCoord[1] - startCoord[1];
+  if (diffX_touch < 0 && Math.abs(diffX_touch) > Math.abs(diffY_touch)) {
+    if (removedAllEventListener == 0){
+      moveCells('left');
+    };
+  } else if (diffX_touch > 0 && Math.abs(diffX_touch) > Math.abs(diffY_touch)) {
+    if (removedAllEventListener == 0){
+      moveCells('right');
+    };
+  } else if (diffY_touch > 0 && Math.abs(diffX_touch) <= Math.abs(diffY_touch)) {
+    if (removedAllEventListener == 0){
+      moveCells('down');
+    };
+  } else if (diffY_touch < 0 && Math.abs(diffX_touch) <= Math.abs(diffY_touch)) {
+    if (removedAllEventListener == 0){
+      moveCells('up');
+    };
+  }
+};
+
+
+window.addEventListener('mousedown', mousedown, false); // 마우스 버튼 입력 시작 감지
+
+window.addEventListener('mouseup', mouseup, false); // 마우스 버튼 입력 중지 감지
+
+window.addEventListener('touchstart', touchstart, false); // 터치 시작 감지
+
+window.addEventListener('touchend', touchend, false); // 터치 끝 감지
+
+function moveup(){
+  moveCells('up');
+};
+function movedn(){
+  moveCells('down');
+};
+function movelt(){
+  moveCells('left');
+};
+function movert(){
+  moveCells('right');
+};
+
 
 // // // // //  실행부 // // // // // 
 startGame();
