@@ -1,11 +1,30 @@
 // // // // //  변수 선언부 // // // // // 
 let data = []; // 게임판(이중배열)
+let newdata
 const $table = document.createElement("table");
-const $tile = document.getElementById("tile");
+// const $tile = document.getElementById("tile");
+const $tile00 = document.getElementById("tile00");
+const $tile01 = document.getElementById("tile01");
+const $tile02 = document.getElementById("tile02");
+const $tile03 = document.getElementById("tile03");
+const $tile10 = document.getElementById("tile10");
+const $tile11 = document.getElementById("tile11");
+const $tile12 = document.getElementById("tile12");
+const $tile13 = document.getElementById("tile13");
+const $tile20 = document.getElementById("tile20");
+const $tile21 = document.getElementById("tile21");
+const $tile22 = document.getElementById("tile22");
+const $tile23 = document.getElementById("tile23");
+const $tile30 = document.getElementById("tile30");
+const $tile31 = document.getElementById("tile31");
+const $tile32 = document.getElementById("tile32");
+const $tile33 = document.getElementById("tile33");
 
 
 // // // // //  함수 선언 및 동작부 // // // // // 
 function startGame() { // 게임 시작 함수
+  const $tiles = document.getElementsByClassName('tile');
+  $tiles.style.display = 'none';
   const $fragment = document.createDocumentFragment(); // documentFragment 생성
   [1, 2, 3, 4].forEach(() => { // 4번 반복
     const rowData = []; // 가로줄 생성
@@ -20,60 +39,98 @@ function startGame() { // 게임 시작 함수
   });
   $table.appendChild($fragment); // table에 documentFragment 삽입(불러오기)
   put2ToRandomCell(); // 2를 랜덤한 빈 칸에 생성하는 함수
-  draw(); // 데이터를 표시하는 함수
 }
 
 function put2ToRandomCell() { // 2를 랜덤한 빈 칸에 생성하는 함수
-  const emptyCells = []; // 빈 칸 목록 생성
-  data.forEach((rowData, i) => { // 각각의 가로줄에 대하여
-    rowData.forEach((cellData, j) => { // 각각의 세로줄에 대하여 >>> 가로줄 안에서 세로줄을 찾으므로 한 칸씩 탐색됨(즉 각각의 칸에 대해서)
-      if (!cellData) { // 칸에 값이 없으면(0이 있으면)
-        emptyCells.push([i, j]); // 빈 칸 목록에 무슨 칸인지 등록 >>>> (i+1)번째 가로줄과 (j+1)번째 세로줄에 해당하는 칸
+  const emptyCells = []; // [[i1, j1], [i2, j2], [i3, j3]]
+  data.forEach((rowData, i) => {
+    rowData.forEach((cellData, j) => {
+      if (!cellData) {
+        emptyCells.push([i, j]);
       }
     });
   });
-  const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]; // 빈 칸 중에서 랜덤하게 한 칸을 추출
-  data[randomCell[0]][randomCell[1]] = 2; //  추출된 칸의 데이터를 2로 설정
+  // randomCell === [i, j]
+  const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+  newdata = [
+    [0,0,0,0],
+    [0,0,0,0],
+    [0,0,0,0],
+    [0,0,0,0]
+  ];
+  newdata[randomCell[0]][randomCell[1]] = 2;
+  draw('random', newdata);
 }
-
-function draw(direction) { // 데이터를 표시하는 함수
-  switch (direction) {
-    case 'left': {
-      var realdata = 0;
-      var showndata = 0;
-      for (i=0;i<1;i++) {
-        $targetdiv = document.getElementsByClassName('position'+i+showndata)[0];
-        if (data[i][realdata] && $targetdiv) {
-          console.log("if1");
-
-        } else if (data[i][realdata] && !$targetdiv) {
-          showndata += 1;
-          console.log("if2");
-        } else if (!data[i][realdata] && $targetdiv) {
-          realdata += 1;
-          console.log("if3");
-          $targetdiv.className = 'position'+i+(showndata+1);
-        } else {
-          console.log("else");
-          realdata += 1;
-          showndata += 1;
-        }
-
+let random_result;
+function draw(direction = null, newdata = null) { // 데이터를 표시하는 함수
+  if (direction == 'random') {
+    console.log(newdata);
+    const random_result0 = newdata[0].indexOf(2);
+    const random_result1 = newdata[1].indexOf(2);
+    const random_result2 = newdata[2].indexOf(2);
+    const random_result3 = newdata[3].indexOf(2);
+    console.log(random_result0);
+    console.log(random_result1);
+    console.log(random_result2);
+    console.log(random_result3);
+    if (random_result0){
+      if (random_result0 === 0) {
+        random_result = $tile00;
+      } else if (random_result0 === 1) {
+        random_result = $tile01;
+      } else if (random_result0 === 2) {
+        random_result = $tile02;
+      } else if (random_result0 === 3) {
+        random_result = $tile03;
       }
-    }
+    } else if (random_result1){
+      if (random_result1 === 0) {
+        random_result = $tile10;
+      } else if (random_result1 === 1) {
+        random_result = $tile11;
+      } else if (random_result1 === 2) {
+        random_result = $tile12;
+      } else if (random_result1 === 3) {
+        random_result = $tile13;
+      }
+    } else if (random_result2){
+      if (random_result2 === 0) {
+        random_result = $tile20;
+      } else if (random_result2 === 1) {
+        random_result = $tile21;
+      } else if (random_result2 === 2) {
+        random_result = $tile22;
+      } else if (random_result2 === 3) {
+        random_result = $tile23;
+      }
+    } else if (random_result3){
+      if (random_result3 === 0) {
+        random_result = $tile30;
+      } else if (random_result3 === 1) {
+        random_result = $tile31;
+      } else if (random_result3 === 2) {
+        random_result = $tile32;
+      } else if (random_result3 === 3) {
+        random_result = $tile33;
+      }
+    };
+    console.log(random_result);
+    random_result.style.display = 'unset';
+    random_result.textContent = '2';
+    random_result.className = 'color-2';
   }
 }
 
 function moveCells(direction) { // 각 칸의 데이터들을 정렬하고 병합하는 함수
   switch (direction) { // direction에 대하여
     case 'left': { // left이면
-      positionnumber1 = Number($tile.className.slice(-1))-1;
+      positionnumber1 = Number($tile00.className.slice(-1))-1;
       if (positionnumber1 < 0) {
         positionnumber1 = 0;
       };
-      positionnumber2 = Number($tile.className.slice(-2).slice(0, 1));
-      $tile.className = "position"+positionnumber2+positionnumber1;
-      console.log($tile);
+      positionnumber2 = Number($tile00.className.slice(-2).slice(0, 1));
+      $tile00.className = "position"+positionnumber2+positionnumber1;
+      console.log($tile00);
       const newData = [[], [], [], []]; // 정렬을 위한 배열 생성
       data.forEach((rowData, i) => { // 각각의 가로줄에 대하여
         rowData.forEach((cellData, j) => { // 각각의 세로줄에 대하여 >>> 가로줄 안에서 세로줄을 찾으므로 한 칸씩 탐색됨(즉 각각의 칸에 대해서)
@@ -94,13 +151,13 @@ function moveCells(direction) { // 각 칸의 데이터들을 정렬하고 병�
       break;
     }
     case 'right': { // right이면
-      positionnumber1 = Number($tile.className.slice(-1))+1;
+      positionnumber1 = Number($tile00.className.slice(-1))+1;
       if (positionnumber1 > 3) {
         positionnumber1 = 3;
       };
-      positionnumber2 = Number($tile.className.slice(-2).slice(0, 1));
-      $tile.className = "position"+positionnumber2+positionnumber1;
-      console.log($tile);
+      positionnumber2 = Number($tile00.className.slice(-2).slice(0, 1));
+      $tile00.className = "position"+positionnumber2+positionnumber1;
+      console.log($tile00);
       const newData = [[], [], [], []]; // 정렬을 위한 배열 생성
       data.forEach((rowData, i) => { // 각각의 가로줄에 대하여
         rowData.forEach((cellData, j) => { // 각각의 세로줄에 대하여 >>> 가로줄 안에서 세로줄을 찾으므로 한 칸씩 탐색됨(즉 각각의 칸에 대해서)
@@ -121,13 +178,13 @@ function moveCells(direction) { // 각 칸의 데이터들을 정렬하고 병�
       break;
     }
     case 'up': { // up이면
-      positionnumber1 = Number($tile.className.slice(-1));
-      positionnumber2 = Number($tile.className.slice(-2).slice(0, 1))-1;
+      positionnumber1 = Number($tile00.className.slice(-1));
+      positionnumber2 = Number($tile00.className.slice(-2).slice(0, 1))-1;
       if (positionnumber2 < 0) {
         positionnumber2 = 0;
       };
-      $tile.className = "position"+positionnumber2+positionnumber1;
-      console.log($tile);
+      $tile00.className = "position"+positionnumber2+positionnumber1;
+      console.log($tile00);
       const newData = [[], [], [], []]; // 정렬을 위한 배열 생성
       data.forEach((rowData, i) => { // 각각의 가로줄에 대하여
         rowData.forEach((cellData, j) => { // 각각의 세로줄에 대하여 >>> 가로줄 안에서 세로줄을 찾으므로 한 칸씩 탐색됨(즉 각각의 칸에 대해서)
@@ -148,13 +205,13 @@ function moveCells(direction) { // 각 칸의 데이터들을 정렬하고 병�
       break;
     }
     case 'down': { // down이면
-      positionnumber1 = Number($tile.className.slice(-1));
-      positionnumber2 = Number($tile.className.slice(-2).slice(0, 1))+1;
+      positionnumber1 = Number($tile00.className.slice(-1));
+      positionnumber2 = Number($tile00.className.slice(-2).slice(0, 1))+1;
       if (positionnumber2 > 3) {
         positionnumber2 = 3;
       };
-      $tile.className = "position"+positionnumber2+positionnumber1;
-      console.log($tile);
+      $tile00.className = "position"+positionnumber2+positionnumber1;
+      console.log($tile00);
       const newData = [[], [], [], []]; // 정렬을 위한 배열 생성
       data.forEach((rowData, i) => { // 각각의 가로줄에 대하여
         rowData.forEach((cellData, j) => { // 각각의 세로줄에 대하여 >>> 가로줄 안에서 세로줄을 찾으므로 한 칸씩 탐색됨(즉 각각의 칸에 대해서)
@@ -176,7 +233,7 @@ function moveCells(direction) { // 각 칸의 데이터들을 정렬하고 병�
     }
   }
   put2ToRandomCell(); // 2를 랜덤한 빈 칸에 생성하는 함수
-  //draw(); // 데이터를 표시하는 함수
+  // draw(); // 데이터를 표시하는 함수
 }
 
 window.addEventListener('keyup', (event) => { // 키보드 키가 뗴질 때
