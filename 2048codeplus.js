@@ -1,6 +1,8 @@
 // // // // //  변수 선언부 // // // // // 
+const $score = document.getElementById('score');
 let data = []; // 게임판(이중배열)
-let newdata
+let newdata;
+const history = [];
 const $table = document.createElement("table");
 // const $tile = document.getElementById("tile");
 const $tile00 = document.getElementById("tile00");
@@ -19,12 +21,11 @@ const $tile30 = document.getElementById("tile30");
 const $tile31 = document.getElementById("tile31");
 const $tile32 = document.getElementById("tile32");
 const $tile33 = document.getElementById("tile33");
-
+// const $tiles = document.getElementsByClassName('tile');
 
 // // // // //  함수 선언 및 동작부 // // // // // 
 function startGame() { // 게임 시작 함수
-  const $tiles = document.getElementsByClassName('tile');
-  $tiles.style.display = 'none';
+  // $tiles.style.display = 'none';
   const $fragment = document.createDocumentFragment(); // documentFragment 생성
   [1, 2, 3, 4].forEach(() => { // 4번 반복
     const rowData = []; // 가로줄 생성
@@ -115,13 +116,18 @@ function draw(direction = null, newdata = null) { // 데이터를 표시하는 �
       }
     };
     console.log(random_result);
-    random_result.style.display = 'unset';
-    random_result.textContent = '2';
+    random_result.style.display = 'none';
     random_result.className = 'color-2';
+    random_result.style.display = 'block';
+    random_result.textContent = '2';
   }
 }
 
 function moveCells(direction) { // 각 칸의 데이터들을 정렬하고 병합하는 함수
+  history.push({
+    table: JSON.parse(JSON.stringify(data)),
+    score: $score.textContent,
+  });
   switch (direction) { // direction에 대하여
     case 'left': { // left이면
       positionnumber1 = Number($tile00.className.slice(-1))-1;
@@ -143,6 +149,7 @@ function moveCells(direction) { // 각 칸의 데이터들을 정렬하고 병�
           } // 각 칸에 대하여 위의 코드가 실행되는 순서는 왼쪽에서 오른쪽이므로 비어있지 않은 칸들은 먼저 감지된 순서대로(왼쪽에 있는 순서대로) newData에 쌓이게 되고 밑의 코드에서 부족한 데이터 수만큼 0을 삽입(예: 1번째 가로줄이 [0, 2, 0, 4]라면 왼쪽에 있는 0이 아닌 값부터 쌓여 newData[0]이 [2, 4]가 되고 밑의 코드에서 부족한 데이터 수(2개)만큼 0을 삽입하여 newData[0]은 최종적으로 [2, 4, 0, 0]이 되어 왼쪽으로 정렬된다.) 
         });
       });
+      console.log(newData);
       [1, 2, 3, 4].forEach((rowData, i) => { // 4번 반복(가로줄)
         [1, 2, 3, 4].forEach((cellData, j) => { // 4번 반복(세로줄)
           data[i][j] = Math.abs(newData[i][j]) || 0; //  각 칸에 대하여 newData에 값이 있으면 data(게임판, 실제 데이터)에 절댓값을 씌워 적용(위에서 -2를 곱했으므로), 값이 없다면 0을 적용(예: newData[0]이 [2, 4]라면 2번째, 3번째 인덱스에 해당하는 값이 없으므로 그 수(부족한 수)만큼 0을 적용히여 data[0]은 [2, 4, 0, 0]이 됨)
@@ -172,7 +179,7 @@ function moveCells(direction) { // 각 칸의 데이터들을 정렬하고 병�
       });
       [1, 2, 3, 4].forEach((rowData, i) => { // 4번 반복(가로줄)
         [1, 2, 3, 4].forEach((cellData, j) => { // 4번 반복(세로줄)
-          data[i][j] = Math.abs(newData[i][j]) || 0; //  각 칸에 대하여 newData에 값이 있으면 data(게임판, 실제 데이터)에 절댓값을 씌워 적용(위에서 -2를 곱했으므로), 값이 없다면 0을 적용(예: newData[0]이 [2, 4]라면 2번째, 3번째 인덱스에 해당하는 값이 없으므로 그 수(부족한 수)만큼 0을 적용히여 data[0]은 [2, 4, 0, 0]이 됨)
+          data[i][3 - j] = Math.abs(newData[i][j]) || 0; //  각 칸에 대하여 newData에 값이 있으면 data(게임판, 실제 데이터)에 절댓값을 씌워 적용(위에서 -2를 곱했으므로), 값이 없다면 0을 적용(예: newData[0]이 [2, 4]라면 2번째, 3번째 인덱스에 해당하는 값이 없으므로 그 수(부족한 수)만큼 0을 적용히여 data[0]은 [2, 4, 0, 0]이 됨)
         });
       });
       break;
