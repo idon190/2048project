@@ -24,9 +24,43 @@
  body { overscroll-behavior-y: none; }
   #table { border-collapse: collapse; user-select: none; }
   #table td {
-    border: 10px solid #bbada0; width: 116px; height: 128px;
+    border: 20px solid #bbada0; border-radius: 10px; width: 100px; height: 98px;
     font-size: 50px; font-weight: bold; text-align: center;
   }
+
+  .game-background {
+  position: relative;
+  background: #bbada0;
+  border-radius: 10px;
+  width: 500px;
+  height: 500px;
+ }
+
+ .game-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+ }
+
+ .grid-row {
+  margin-bottom: 20px; }
+  .grid-row:last-child {
+    margin-bottom: 0; }
+  .grid-row:after {
+    content: "";
+    display: block;
+    clear: both; }
+
+ .grid-cell {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+  float: left;
+  border-radius: 3px;
+  background: rgba(238, 228, 218, 0.35); }
+  .grid-cell:last-child {
+    margin-right: 0; }
+
   #score { user-select: none; }
   .color-2 { background-color: #eee4da; color: #776e65;}
   .color-4 { background-color: #eee1c9; color: #776e65;}
@@ -43,8 +77,38 @@
   .color-8192 { background-color: #80fcb4; color: #776e65;}
 </style>
 </head>
-<body>
-<table id="table"></table>
+<body align="center" style="background-color: rgb(236, 234, 213);">
+<div style="position: relative; margin: auto;" class="game-background">
+  <div class="game-container">
+    <div class="grid-row">
+      <div class="grid-cell"></div>
+      <div class="grid-cell"></div>
+      <div class="grid-cell"></div>
+      <div class="grid-cell"></div>
+    </div>
+    <div class="grid-row">
+      <div class="grid-cell"></div>
+      <div class="grid-cell"></div>
+      <div class="grid-cell"></div>
+      <div class="grid-cell"></div>
+    </div>
+    <div class="grid-row">
+      <div class="grid-cell"></div>
+      <div class="grid-cell"></div>
+      <div class="grid-cell"></div>
+      <div class="grid-cell"></div>
+    </div>
+    <div class="grid-row">
+      <div class="grid-cell"></div>
+      <div class="grid-cell"></div>
+      <div class="grid-cell"></div>
+      <div class="grid-cell"></div>
+    </div>
+  </div>
+  <div style="position: relative;">
+    <table id="table"></table>
+  </div>
+</div>
 <div>
   <span id="score">0</span>
   <button id="back">되돌리기</button>
