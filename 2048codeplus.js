@@ -35,7 +35,9 @@ function put2ToRandomCell() { // 2를 랜덤한 빈 칸에 생성하는 함수
     });
   });
   const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]; // 빈 칸 중에서 랜덤하게 한 칸을 추출
-  data[randomCell[0]][randomCell[1]] = 2; //  추출된 칸의 데이터를 2로 설정
+  if (randomCell) {
+    data[randomCell[0]][randomCell[1]] = 2; //  추출된 칸의 데이터를 2로 설정
+  }
 }
 
 function draw() { // 데이터를 표시하는 함수
