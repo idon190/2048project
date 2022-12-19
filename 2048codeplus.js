@@ -1,5 +1,8 @@
 // // // // //  변수 선언부 // // // // // 
 const $table = document.getElementById("table"); // 표 생성
+const $score = document.getElementById("score"); // 점수 생성
+let score = 0;
+$score.textContent = "2048 점수: " + score;
 let data = []; // 게임판(이중배열)
 
 
@@ -41,13 +44,13 @@ function draw() { // 데이터를 표시하는 함수
       const $target = $table.children[i].children[j]; // 표시할 대상 지정
       if (cellData) { // 칸에 값이 있으면(0이 아니면)
         $target.textContent = cellData; // 표시할 내용을 칸에 있는 값으로 설정
-        $target.className = 'color-' + cellData; // 표시할 색을 칸에 있는 값에 해당하는 색으로 설정(html 파일 참조)
       } else { // 아니면(칸에 0이 있으면(비어 있으면))
         $target.textContent = ''; // 표시할 내용을 미지정
-        $target.className = ''; // 표시할 색을 미지정
       }
+      $target.className = 'color-' + cellData; // 표시할 색을 칸에 있는 값에 해당하는 색으로 설정(html 파일 참조)
     });
   });
+  $score.textContent = "2048 점수: " + score;
 }
 
 function moveCells(direction) { // 각 칸의 데이터들을 정렬하고 병합하는 함수
@@ -58,6 +61,7 @@ function moveCells(direction) { // 각 칸의 데이터들을 정렬하고 병�
         rowData.forEach((cellData, j) => { // 각각의 세로줄에 대하여 >>> 가로줄 안에서 세로줄을 찾으므로 한 칸씩 탐색됨(즉 각각의 칸에 대해서)
           if (cellData) { // 칸에 값이 있으면(0이 아니면)
             if (newData[i][newData[i].length - 1] === cellData) { //  새로 정렬된 가로줄의 제일 오른쪽 데이터(이전에 정렬된 값)과 현재 칸의 값이 같으면(즉 같은 줄에 빈 칸을 제외하고 같은 숫자가 연속으로 있다면)
+              score += cellData*2;
               newData[i][newData[i].length - 1] *= -2; // 새로 정렬된 가로줄의 제일 오른쪽 데이터(이전에 정렬된 값)에 -2를 곱함(병합 처리가 중복되는 것을 방지하기 위함) >>> 현재 칸의 값은 newData에 삽입하지 않으므로 이전 값에 병합되고 사라진다.
             } else { // 아니면(새로 정렬된 가로줄의 제일 오른쪽 데이터(이전에 정렬된 값)과 현재 칸의 값이 같지 않으면, 즉 같은 줄에 빈 칸을 제외하고 같은 숫자가 연속으로 있지 않다면)
               newData[i].push(cellData); // 해당 칸의 새로운 가로줄 데이터에 칸의 데이터를 삽입
@@ -78,6 +82,7 @@ function moveCells(direction) { // 각 칸의 데이터들을 정렬하고 병�
         rowData.forEach((celLData, j) => { // 각각의 세로줄에 대하여 >>> 가로줄 안에서 세로줄을 찾으므로 한 칸씩 탐색됨(즉 각각의 칸에 대해서)
           if (rowData[3-j]) { // 칸에 값이 있으면(0이 아니면) >>> 오른쪽부터(거꾸로) 감지해야 하므로 왼쪽부터인 cellData 대신 rowData[3-j]를 사용
             if (newData[i][newData[i].length - 1] === rowData[3-j]) { //  새로 정렬된 가로줄의 제일 오른쪽 데이터(이전에 정렬된 값)과 현재 칸의 값이 같으면(즉 같은 줄에 빈 칸을 제외하고 같은 숫자가 연속으로 있다면) >>> 오른쪽이 아닌 왼쪽 정렬로 저장(순서 반대)
+              score += rowData[3-j]*2;
               newData[i][newData[i].length - 1] *= -2; // 새로 정렬된 가로줄의 제일 오른쪽 데이터(이전에 정렬된 값)에 -2를 곱함(병합 처리가 중복되는 것을 방지하기 위함) >>> 현재 칸의 값은 newData에 삽입하지 않으므로 이전 값에 병합되고 사라진다.
             } else { // 아니면(새로 정렬된 가로줄의 제일 오른쪽 데이터(이전에 정렬된 값)과 현재 칸의 값이 같지 않으면, 즉 같은 줄에 빈 칸을 제외하고 같은 숫자가 연속으로 있지 않다면)
               newData[i].push(rowData[3-j]); // 해당 칸의 새로운 가로줄 데이터에 칸의 데이터를 삽입 >>> 오른쪽이 아닌 왼쪽 정렬로 저장(순서 반대)
@@ -98,6 +103,7 @@ function moveCells(direction) { // 각 칸의 데이터들을 정렬하고 병�
         rowData.forEach((cellData, j) => { // 각각의 세로줄에 대하여 >>> 가로줄 안에서 세로줄을 찾으므로 한 칸씩 탐색됨(즉 각각의 칸에 대해서)
           if (cellData) { // 칸에 값이 있으면(0이 아니면)
             if (newData[j][newData[j].length - 1] === cellData) { //  새로 정렬된 세로줄의 제일 오른쪽 데이터(이전에 정렬된 값)과 현재 칸의 값이 같으면(즉 같은 줄에 빈 칸을 제외하고 같은 숫자가 연속으로 있다면) >>> 가로줄과 세로줄이 바뀌어 저장
+              score += cellData*2;
               newData[j][newData[j].length - 1] *= -2; // 새로 정렬된 세로줄의 제일 오른쪽 데이터(이전에 정렬된 값)에 -2를 곱함(병합 처리가 중복되는 것을 방지하기 위함) >>> 현재 칸의 값은 newData에 삽입하지 않으므로 이전 값에 병합되고 사라진다.
             } else { // 아니면(새로 정렬된 가로줄의 제일 오른쪽 데이터(이전에 정렬된 값)과 현재 칸의 값이 같지 않으면, 즉 같은 줄에 빈 칸을 제외하고 같은 숫자가 연속으로 있지 않다면)
               newData[j].push(cellData); // 해당 칸의 새로운 세로줄 데이터에 칸의 데이터를 삽입 >>> 가로줄과 세로줄이 바뀌어 저장
@@ -118,6 +124,7 @@ function moveCells(direction) { // 각 칸의 데이터들을 정렬하고 병�
         rowData.forEach((cellData, j) => { // 각각의 세로줄에 대하여 >>> 가로줄 안에서 세로줄을 찾으므로 한 칸씩 탐색됨(즉 각각의 칸에 대해서)
           if (data[3-i][j]) { // 칸에 값이 있으면(0이 아니면) >>> 아래쪽부터(거꾸로) 감지해야 하므로 왼쪽부터인 cellData 대신 data[3-i][j]를 사용
             if (newData[j][newData[j].length - 1] === data[3-i][j]) { // 새로 정렬된 세로줄의 제일 오른쪽 데이터(이전에 정렬된 값)과 현재 칸의 값이 같으면(즉 같은 줄에 빈 칸을 제외하고 같은 숫자가 연속으로 있다면) >>> 가로줄과 세로줄, 왼쪽과 오른쪽이 반대로 저장
+              score += data[3-i][j]*2;
               newData[j][newData[j].length - 1] *= -2; // 새로 정렬된 세로줄의 제일 오른쪽 데이터(이전에 정렬된 값)에 -2를 곱함(병합 처리가 중복되는 것을 방지하기 위함) >>> 현재 칸의 값은 newData에 삽입하지 않으므로 이전 값에 병합되고 사라진다.
             } else { // 아니면(새로 정렬된 가로줄의 제일 오른쪽 데이터(이전에 정렬된 값)과 현재 칸의 값이 같지 않으면, 즉 같은 줄에 빈 칸을 제외하고 같은 숫자가 연속으로 있지 않다면)
               newData[j].push(data[3-i][j]); // 해당 칸의 새로운 세로줄 데이터에 칸의 데이터를 삽입 >>> 가로줄과 세로줄, 왼쪽과 오른쪽이 반대로 저장
