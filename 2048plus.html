@@ -22,46 +22,14 @@
 <title>2048</title>
 <style>
  body { overscroll-behavior-y: none; }
-  #table { border-collapse: collapse; user-select: none; }
-  #table td {
-    border: 20px solid #bbada0; border-radius: 10px; width: 100px; height: 98px;
+  table { border-collapse: collapse; user-select: none; margin-left:auto; margin-right:auto; }
+  table td {
+    border: 20px solid #bbada0; border-radius: 10px; width: 100.16px; height: 98px;
     font-size: 50px; font-weight: bold; text-align: center;
   }
 
-  .game-background {
-  position: relative;
-  background: #bbada0;
-  border-radius: 10px;
-  width: 500px;
-  height: 500px;
- }
-
- .game-container {
-  position: absolute;
-  top: 20px;
-  left: 20px;
- }
-
- .grid-row {
-  margin-bottom: 20px; }
-  .grid-row:last-child {
-    margin-bottom: 0; }
-  .grid-row:after {
-    content: "";
-    display: block;
-    clear: both; }
-
- .grid-cell {
-  width: 100px;
-  height: 100px;
-  margin-right: 20px;
-  float: left;
-  border-radius: 3px;
-  background: rgba(238, 228, 218, 0.35); }
-  .grid-cell:last-child {
-    margin-right: 0; }
-
   #score { user-select: none; }
+  .color-0 { background-color: #cdc1b4; color: #776e65;}
   .color-2 { background-color: #eee4da; color: #776e65;}
   .color-4 { background-color: #eee1c9; color: #776e65;}
   .color-8 { background-color: #f3b27a; color: 'white';}
@@ -78,47 +46,17 @@
 </style>
 </head>
 <body align="center" style="background-color: rgb(236, 234, 213);">
-<div style="position: relative; margin: auto;" class="game-background">
-  <div class="game-container">
-    <div class="grid-row">
-      <div class="grid-cell"></div>
-      <div class="grid-cell"></div>
-      <div class="grid-cell"></div>
-      <div class="grid-cell"></div>
-    </div>
-    <div class="grid-row">
-      <div class="grid-cell"></div>
-      <div class="grid-cell"></div>
-      <div class="grid-cell"></div>
-      <div class="grid-cell"></div>
-    </div>
-    <div class="grid-row">
-      <div class="grid-cell"></div>
-      <div class="grid-cell"></div>
-      <div class="grid-cell"></div>
-      <div class="grid-cell"></div>
-    </div>
-    <div class="grid-row">
-      <div class="grid-cell"></div>
-      <div class="grid-cell"></div>
-      <div class="grid-cell"></div>
-      <div class="grid-cell"></div>
-    </div>
+<div style="position: relative; margin: auto;">
+  <div>
+    <span id="score" style="font-family: HY견고딕; font-size: 35px;">2048 점수: </span>
+    <span id="information"></span>
+    <div id="NotWorkGroup"></div>
+  <a id="target" style="display: none"></a>
   </div>
   <div style="position: relative;">
     <table id="table"></table>
   </div>
 </div>
-<div>
-  <span id="score">0</span>
-  <button id="back">되돌리기</button>
-  <span id="how_many_remain">3회 남음</span>
-  <button id="Fail">포기하기</button>
-  <button id="record">기록하기</button>
-  <span id="information"></span>
-  <div id="NotWorkGroup"></div>
-  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="btnup">⇧</button><br><button id="btnlt">⇦</button><button id="btndn">⇩</button><button id="btnrt">⇨</button></div>
-  <a id="target" style="display: none"></a>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script src="./2048codeplus.js"></script>
 </body>
