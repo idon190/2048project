@@ -5,6 +5,16 @@ let score = 0;
 $score.textContent = "2048 점수: " + score;
 let data = []; // 게임판(이중배열)
 
+/*
+cheate key: 
+  data = [
+    [32, 2, 4, 2],
+    [64, 4, 8, 4],
+    [2, 1024, 1024, 32],
+    [32, 16, 64, 4],
+  ];
+  draw();
+*/
 
 // // // // //  함수 선언 및 동작부 // // // // // 
 function startGame() { // 게임 시작 함수
